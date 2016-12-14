@@ -44,8 +44,8 @@
      </select>
      <span>Selected storage : {{ getHdd }}</span><br><br>
     </div>
-    {{dataQLocation.length}}
-      <button @click="TestPrice()">GET DATA</button>
+      <button @click="priceSum()">GET DATA</button><br>
+    <br>{{priceEc2}}
 
      <!-- <option v-for="dataQLocation in dataQLocation">
         {{ dataQLocation |JSON }}
@@ -63,6 +63,7 @@ export default {
       dataQCPU: [],
       dataQRAM: [],
       dataQHdd: [],
+      // -------------------
       getLocation: '-',
       getLocation2: '',
       getOS: '-',
@@ -73,6 +74,7 @@ export default {
       getRAM2: '',
       getHdd: '-',
       getHdd2: '',
+      // -------------------
       dropdownLocations: [
        { text: 'US-East / US Standard (Virginia)', value: 'US East (N* Virginia)' },
        { text: 'US-West-2 (Oregon)', value: 'US West (Oregon)' },
@@ -97,9 +99,7 @@ export default {
       dropdownCPU: [],
       dropdownRAM: [],
       dropdownHdd: [],
-      testPrice: [],
-      testPrice2: [],
-      arrDataPrice: ''
+      priceEc2: []
     }
   },
   computed: {
@@ -134,25 +134,6 @@ export default {
   },
   components: {},
   methods: {
-    showdata: function () {
-      var fs = require('chai').assert
-      var sampleObject = {
-        a: 1,
-        b: 2,
-        c: {
-          x: 11,
-          y: 22
-        }
-      }
-
-      fs.writeFile('./object.json', JSON.stringify(sampleObject), (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log('File has been created')
-      })
-    },
     queryLocation: function () {
       if (this.getLocation !== '-' && this.getLocation !== this.getLocation2) {
         // Clear Data -----------
@@ -292,19 +273,15 @@ export default {
             this.dataQHdd.push(item)
           }
         })
+        this.priceSum()
       }
     },
-    TestPrice: function () {
-      this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand.json').then(function (res) {
-        this.arrDataPrice = res.body
-        this.arrDataPrice.forEach(item => {
-          this.testPrice.push(item)
-          if (item === '2NHYWYXEYJ5HGPM4*JRTCKXETXF') {
-            this.testPrice2.push(item)
-          }
-        })
+    priceSum: function () {
+      let sku = this.dataQHdd[0].sku
+      let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
+      this.$http.get(text).then(function (res) {
+        this.priceEc2 = res.body
       })
-      JSON.stringify(this.testPrice)
     }
   }
 }

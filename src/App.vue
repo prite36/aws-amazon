@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <button @click="TestPrice()">GET DATA</button>
+    <div id="container"></div>
+     <!-- <button @click="TestPrice()">GET DATA</button> -->
       <router-link to="/EC2">EC2</router-link>
       <router-link to="/S3">S3</router-link>
       <router-link to="/RDS">RDS</router-link>
@@ -15,23 +16,11 @@ export default {
   name: 'app',
   data () {
     return {
-      arrDataPrice: '',
-      testPrice: '',
-      testPrice2: ''
+      arrDataPrice: ''
     }
   },
   methods: {
     TestPrice: function () {
-      this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand.json').then(function (res) {
-        this.arrDataPrice = [res.body]
-        this.arrDataPrice.forEach(item => {
-          this.testPrice.push(item)
-          if (item === '2NHYWYXEYJ5HGPM4') {
-            this.testPrice2.push(item)
-          }
-        })
-      })
-      JSON.stringify(this.testPrice)
     }
   }
 }
