@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="container"></div>
-     <!-- <button @click="TestPrice()">GET DATA</button> -->
+      <!-- <button @click="Test()">GET DATA</button>
+       {{dropdownrds}} -->
       <router-link to="/EC2">EC2</router-link>
       <router-link to="/S3">S3</router-link>
       <router-link to="/RDS">RDS</router-link>
@@ -16,11 +17,24 @@ export default {
   name: 'app',
   data () {
     return {
-      arrDataPrice: ''
+      dropdownrds: []
     }
   },
   methods: {
-    TestPrice: function () {
+    Test: function () {
+      this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/RDS/products.json').then(function (res) {
+        var arrData = Object.keys(res.body).map(key => res.body[key])
+        arrData.forEach(item => {
+          let CPUExist = this.dropdownrds.find(function (vCPU) {
+            return vCPU.newvCPU === item.attributes.deploymentOption
+          })
+          if (!CPUExist) {
+            let newvCPU = item.attributes.deploymentOption
+            newvCPU = { newvCPU }
+            this.dropdownrds.push(newvCPU)
+          }
+        })
+      })
     }
   }
 }

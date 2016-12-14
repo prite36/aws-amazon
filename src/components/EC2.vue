@@ -82,6 +82,7 @@ export default {
        { text: 'Europe (Ireland)', value: 'EU (Ireland)' },
        { text: 'Europe Central (Frankfurt)', value: 'EU (Frankfurt)' },
        { text: 'Asia Pacific (Singapore)', value: 'Asia Pacific (Singapore)' },
+       { text: 'Asia Pacific (Japan)', value: 'Asia Pacific (Tokyo)' },
        { text: 'Asia Pacific (Sydney)', value: 'Asia Pacific (Sydney)' },
        { text: 'Asia Pacific (Seoul)', value: 'Asia Pacific (Seoul)' },
        { text: 'Asia Pacific (Mumbai)', value: 'Asia Pacific (Mumbai)' },
