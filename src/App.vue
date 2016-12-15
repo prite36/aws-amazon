@@ -4,7 +4,6 @@
        {{dropdownrds}} -->
        <nav class="nav_has-shadow"></nav>
        <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2>
-       <br><br> RDS Calculator
        <RDS :get-location="getLocation" ></RDS>
 
       <transition name="slide-fade" mode="out-in">
@@ -60,14 +59,18 @@ body {
   justify-content: center;
   height: 100%;
   background-color: #FFFFFF;
+  padding: 0% 0% 0% 0%;
   margin:0px 0px 100px 110px;color:#616366;font-family:"Raleway", Helvetica, Arial, sans-serif;font-size:15px;font-weight:300;line-height:25px;
 }
 #app {
   color: #2c3e50;
   /*max-width:1170px;
-  min-width:360px;*/
+  min-width:900px;*/
   font-family: Source Sans Pro, Helvetica, sans-serif;
   text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
 
 }
 #app a {
@@ -83,4 +86,7 @@ body {
   background-color: #00d1b2;
   height: 7%;
 }
+.header {
+  height: 10%;
+  }
 </style>

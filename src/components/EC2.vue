@@ -1,5 +1,5 @@
 <template>
-  <div id="">
+  <div id="EC2">
     <!-- Drop Down List Location  -->
     <!-- <a class="button"> -->
         <!-- <div class="testbutton"><img src="https://firebasestorage.googleapis.com/v0/b/aws-amazon-fe7a5.appspot.com/o/United-States-of-America.png?alt=media&token=76b363de-b3bc-4a4e-bd54-b5d859ffd69e" placeholder="First name" alt="">
@@ -32,33 +32,63 @@
     <div class ="box02" >
     <div class="deploy_block">
     <div class="deploy_block_step">1</div>
-    <h3>CPU</h3>
-    <div class="box_icon"><img src="http://upic.me/i/dr/electronics.png" alt=""></div>
-     <select :disabled="switchCPU" v-model="getCPU" @click="queryCPU()">
-       <option v-for="dropdownCPU in dropdownCPU " v-bind:value="dropdownCPU.newvCPU" >
-          {{ dropdownCPU.newvCPU }}
-      </option>
-     </select>
-     <span>Selected vCPU : {{ getCPU }}</span><br><br>
+    <h3>vCPU Size</h3>
+    </div>
+    <div class="tab_dropdown">
+      <div class="box_icon"><img src="http://upic.me/i/dr/electronics.png" alt=""></div>
+      <span class="select" style="height: 120px;">
+      <select :disabled="switchCPU" v-model="getCPU" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryCPU()" >
+        <option v-for="dropdownCPU in dropdownCPU " v-bind:value="dropdownCPU.newvCPU" >
+           {{ dropdownCPU.newvCPU }}
+        </option>
+      </select>
+    <div class="tab_text">
+      <span>Selected vCPU : {{ getCPU }} Core</span><br><br>
     </div>
     </div>
+    </div>
+    <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List RAM  -->
-
-     <select :disabled="switchRAM" v-model="getRAM" @click="queryRAM()">
-       <option v-for="dropdownRAM in dropdownRAM " v-bind:value="dropdownRAM.newRAM" >
-          {{ dropdownRAM.newRAM }}
-      </option>
-     </select>
-     <span>Selected RAM : {{ getRAM }}</span><br><br>
-
+    <div class ="box02" >
+    <div class="deploy_block">
+    <div class="deploy_block_step">2</div>
+    <h3>Memory Size</h3>
+    </div>
+    <div class="tab_dropdown">
+      <div class="box_icon"><img src="http://upic.me/i/pg/memoryslot.png" alt=""></div>
+      <span class="select" style="height: 120px;">
+      <select :disabled="switchRAM" v-model="getRAM" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryRAM()" >
+        <option v-for="dropdownRAM in dropdownRAM " v-bind:value="dropdownRAM.newvRAM" >
+           {{ dropdownRAM.newRAM }}
+        </option>
+      </select>
+    <div class="tab_text">
+      <span>Selected Memory : {{ getRAM }} Gb</span><br><br>
+    </div>
+    </div>
+    </div>
+    <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List Hdd  -->
+    <div class ="box02" >
+    <div class="deploy_block">
+    <div class="deploy_block_step">3</div>
+    <h3>Memory Size</h3>
+    </div>
+    <div class="tab_dropdown">
+      <div class="box_icon"><img src="http://upic.me/i/s6/r3hdd.png" alt=""></div>
+      <span class="select" style="height: 120px;">
+      <select :disabled="switchHDD" v-model="getHDD" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryHdd()" >
+        <option v-for="dropdownHDD in dropdownHDD " v-bind:value="dropdownHdd.newvHdd" >
+           {{ dropdownHdd.newHdd }}
+        </option>
+      </select>
+    <div class="tab_text">
+      <span>Selected Storage : {{ getHdd }} Gb</span><br><br>
+    </div>
+    </div>
+    </div>
+    <!-- ++++++++++++++++++++++ -->
 
-     <select :disabled="switchHDD" v-model="getHdd" @click="queryHdd()">
-       <option v-for="dropdownHdd in dropdownHdd " v-bind:value="dropdownHdd.newHdd" >
-          {{ dropdownHdd.newHdd }}
-      </option>
-     </select>
-     <span>Selected storage : {{ getHdd }}</span><br><br>
 
       <button @click="priceSum()">GET DATA</button><br>
     <br>{{priceEc2}}
@@ -319,6 +349,11 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+#EC2{
+    background-color: #FFFFFF;
+    height: 100%;
+    width: 100%;
+}
 *							{box-sizing:border-box;}
 .buttonchoice {
   width: 40vh;
@@ -366,6 +401,7 @@ h1, h2 {
 .box_icon {
   width: 200px;
   height: 200px;
+  margin-top: 40px;
   padding: 50px 50px 50px 50px;
   border: 1px solid #e6e9eb;
   border-style: solid;
@@ -373,13 +409,27 @@ h1, h2 {
   border-radius: 3px;
   display: inline-block;
   float: left;
-  background-color: #f1f1f1;
+  background-color: #ECEFF1;
+
+}
+.tab_dropdown{
+  float: left;
+  margin-left: -7em;
+  margin-bottom: 40px;
+}
+.tab_text{
+  margin-left: 40px;
+  margin-top: 40px;
+  font-size:20px;
+  letter-spacing: 1px;
+  text-align: left;
 }
 h3 {
   font-size:20px;
   line-height:28px;
-  margin:0px 0px 25px 0px;
+  margin:15px 10px 30px 10px;
   color:#363B40;
   font-weight:500;
+  float: left;
 }
 </style>

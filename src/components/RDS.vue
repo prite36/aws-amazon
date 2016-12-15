@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div id="RDS">
     <h1>{{ msg }}</h1>
     {{getLocation}}
     <!-- Drop Down List Location  -->
@@ -50,8 +50,6 @@ export default {
       dataQDBengine: [],
       dataQClassDeploy: [],
       // -----------------------
-      getLocation5: '-',
-      getLocation6: '',
       getDBengine: '-',
       getDBengine2: '',
       getClassDB: '-',
@@ -59,18 +57,6 @@ export default {
       getDeploy: 'Single-AZ',
       getDeploy2: '',
       // -----------------------
-      dropdownLocations: [
-       { text: 'US-East / US Standard (Virginia)', value: 'US East (N* Virginia)' },
-       { text: 'US-West-2 (Oregon)', value: 'US West (Oregon)' },
-       { text: 'US-West (Northern California)', value: 'US West (N* California)' },
-       { text: 'Europe (Ireland)', value: 'EU (Ireland)' },
-       { text: 'Europe Central (Frankfurt)', value: 'EU (Frankfurt)' },
-       { text: 'Asia Pacific (Singapore)', value: 'Asia Pacific (Singapore)' },
-       { text: 'Asia Pacific (Japan)', value: 'Asia Pacific (Tokyo)' },
-       { text: 'Asia Pacific (Sydney)', value: 'Asia Pacific (Sydney)' },
-       { text: 'Asia Pacific (Seoul)', value: 'Asia Pacific (Seoul)' },
-       { text: 'Asia Pacific (Mumbai)', value: 'Asia Pacific (Mumbai)' },
-       { text: 'South America (Sao Paulo)', value: 'South America (Sao Paulo)' }],
       dropdownDBengine: [
         { value: {text: 'Aurora', db: 'Amazon Aurora', status: 1} },
         { value: {text: 'MySQL', db: 'MySQL', status: 1} },
@@ -119,8 +105,8 @@ export default {
     }
   },
   methods: {
-    queryLocation: function () {
-      if (this.getLocation5 !== '-' && this.getLocation5 !== this.getLocation6) {
+    queryLocationRDS: function () {
+      if (this.getLocation !== '-') {
         // Clear Data -----------
         this.getDBengine = '-'
         // --- DATA -------
@@ -129,12 +115,11 @@ export default {
         this.dataQClassDeploy = []
         // --- Drop down -------
         //  ---------------------
-        this.getLocation6 = this.getLocation5
         this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/RDS/products.json').then(function (res) {
           var arrData = Object.keys(res.body).map(key => res.body[key])
           arrData.forEach(item => {
             if (item.attributes.location === this.getLocation) {
-              this.dataQLocation.push(item)
+              this.dataQLocationRDS.push(item)
             }
           })
         })
@@ -210,5 +195,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+#RDS{
+    background-color: #FFFFFF;
+    height: 100%;
+    width: 100%;
 }
 </style>
