@@ -10,50 +10,56 @@
       <!-- <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
           <a class="button">{{ dropdownLocations.text }}</a>
       </option> -->
-      <div>
-      <div class="buttonchoice" v-for="dropdownLocation in dropdownLocations" @click="queryLocation(dropdownLocation.value)" >
-        <img :src="dropdownLocation.img" alt="">
-        <br>{{ dropdownLocation.text}}
+     <div class ="box02" >
+      <div class="buttonchoice" v-for="boxLocation in boxLocations" @click="queryLocation(boxLocation.value)" >
+        <img :src="boxLocation.img" alt="">
+        <br>{{ boxLocation.text}}
       </div>
-      <div
+    </div>
+
      <span>Selected Location : {{ getLocation }}</span><br><br>
 
      <!-- Drop Down List OS  -->
-     <div  v-show="showOS">
-      <select v-model="getOS" @click="queryOS()">
-       <option v-for="dropdownOS in dropdownOS " v-bind:value="dropdownOS.value" v-show = "dropdownOS.value.status !== 0">
-           {{ dropdownOS.value.text  }}
+
+      <select :disabled="switchOS" v-model="getOS" @click="queryOS()">
+       <option v-for="boxOS in boxOS " v-bind:value="boxOS.value" v-show = "boxOS.value.status !== 0">
+           {{ boxOS.value.text  }}
        </option>
       </select>
       <span>Selected OS : {{ getOS.text  }}</span><br><br>
-     </div>
+
     <!-- Drop Down List vCPU  -->
-    <div  v-show="showCPU"  @click="queryCPU()">
-     <select v-model="getCPU">
+    <div class ="box02" >
+    <div class="deploy_block">
+    <div class="deploy_block_step">1</div>
+    <h3>CPU</h3>
+    <div class="box_icon"><img src="http://upic.me/i/dr/electronics.png" alt=""></div>
+     <select :disabled="switchCPU" v-model="getCPU" @click="queryCPU()">
        <option v-for="dropdownCPU in dropdownCPU " v-bind:value="dropdownCPU.newvCPU" >
           {{ dropdownCPU.newvCPU }}
       </option>
      </select>
      <span>Selected vCPU : {{ getCPU }}</span><br><br>
     </div>
+    </div>
     <!-- Drop Down List RAM  -->
-    <div  v-show="showRAM" @click="queryRAM()">
-     <select v-model="getRAM">
+
+     <select :disabled="switchRAM" v-model="getRAM" @click="queryRAM()">
        <option v-for="dropdownRAM in dropdownRAM " v-bind:value="dropdownRAM.newRAM" >
           {{ dropdownRAM.newRAM }}
       </option>
      </select>
      <span>Selected RAM : {{ getRAM }}</span><br><br>
-    </div>
+
     <!-- Drop Down List Hdd  -->
-    <div  v-show="showHdd" @click="queryHdd()">
-     <select v-model="getHdd">
+
+     <select :disabled="switchHDD" v-model="getHdd" @click="queryHdd()">
        <option v-for="dropdownHdd in dropdownHdd " v-bind:value="dropdownHdd.newHdd" >
           {{ dropdownHdd.newHdd }}
       </option>
      </select>
      <span>Selected storage : {{ getHdd }}</span><br><br>
-    </div>
+
       <button @click="priceSum()">GET DATA</button><br>
     <br>{{priceEc2}}
 
@@ -66,7 +72,7 @@
 <script>
 export default {
   name: 'EC2',
-  props: [],
+  props: ['getLocation', 'fuLocation'],
   data () {
     return {
       dataQLocation: [],
@@ -75,8 +81,7 @@ export default {
       dataQRAM: [],
       dataQHdd: [],
       // -------------------
-      getLocation: '-',
-      getLocation2: '',
+
       getOS: '-',
       getOS2: '',
       getCPU: '-',
@@ -86,7 +91,7 @@ export default {
       getHdd: '-',
       getHdd2: '',
       // -------------------
-      dropdownLocations: [
+      boxLocations: [
        { text: 'US-East / US Standard (Virginia)', value: 'US East (N* Virginia)', img: 'http://upic.me/i/yf/united-states-of-america.png' },
        { text: 'US-West-2 (Oregon)', value: 'US West (Oregon)', img: 'http://upic.me/i/yf/united-states-of-america.png' },
        { text: 'US-West (Northern California)', value: 'US West (N* California)', img: 'http://upic.me/i/yf/united-states-of-america.png' },
@@ -107,7 +112,7 @@ export default {
        { value: {text: 'Red Hat Enterprise Linux', os: 'RHEL', preInstall: 'NA', status: 1} },
        { value: {text: 'SUSE Linux Enterprise Server', os: 'SUSE', preInstall: 'NA', status: 1} }
       ],
-      dropdownOS: [],
+      boxOS: [],
       dropdownCPU: [],
       dropdownRAM: [],
       dropdownHdd: [],
@@ -115,32 +120,32 @@ export default {
     }
   },
   computed: {
-    showOS: function () {
+    switchOS: function () {
       if (this.dataQLocation.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
-    showCPU: function () {
+    switchCPU: function () {
       if (this.dataQOS.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
-    showRAM: function () {
+    switchRAM: function () {
       if (this.dataQCPU.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
-    showHdd: function () {
+    switchHDD: function () {
       if (this.dataQRAM.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     }
     // priceSum2: function () {
@@ -153,8 +158,9 @@ export default {
   },
   components: {},
   methods: {
-    queryLocation: function (dropdownLocation) {
-      console.log(dropdownLocation)
+    queryLocation: function (boxLocation) {
+      var vm = this
+      vm.getLocation = boxLocation
       if (this.getLocation !== '-' && this.getLocation !== this.getLocation2) {
         // Clear Data -----------
         this.getOS = '-'
@@ -165,10 +171,10 @@ export default {
         this.dataQRAM = []
         this.dataQHdd = []
         // --- Drop down -------
-        this.dropdownOS = []
-        this.dropdownOS = JSON.parse(JSON.stringify(this.nameOS))
-        this.dropdownOS = this.nameOS
+        this.boxOS = []
+        this.boxOS = JSON.parse(JSON.stringify(this.nameOS))
         //  ---------------------
+        this.fuLocation(this.getLocation)
         this.getLocation2 = this.getLocation
         this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/products.json').then(function (res) {
           var arrData = Object.keys(res.body).map(key => res.body[key])
@@ -180,15 +186,12 @@ export default {
           })
         })
       }
-      // var dictstring = JSON.stringify(this.dataQLocation)
-      // var fs = require('fs')
-      // fs.writeFile('thing.json', dictstring)
     },
     banOS: function (location) {
-      if (location === 'US East (N* Virginia)') this.dropdownOS[3].value.status = 1
+      if (location === 'US East (N* Virginia)') this.boxOS[3].value.status = 1
       // ******************
-      else if (location === 'US West (Oregon)') this.dropdownOS[3].value.status = 1
-      else if (location === 'EU (Ireland)') this.dropdownOS[3].value.status = 1
+      else if (location === 'US West (Oregon)') this.boxOS[3].value.status = 1
+      else if (location === 'EU (Ireland)') this.boxOS[3].value.status = 1
     },
     queryOS: function () {
       if (this.getOS !== '-' && this.getOS !== this.getOS2) {
@@ -293,12 +296,12 @@ export default {
             this.dataQHdd.push(item)
           }
         })
-        let sku = this.dataQHdd[0].sku
-        let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
-        this.$http.get(text).then(function (res) {
-          this.priceEc2 = res.body
-        })
       }
+      let sku = this.dataQHdd[0].sku
+      let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
+      this.$http.get(text).then(function (res) {
+        this.priceEc2 = res.body
+      })
     },
     priceSum: function () {
       let sku = this.dataQHdd[0].sku
@@ -330,5 +333,53 @@ h1, h2 {
 }
 .buttonchoice:hover {
   border: 1px solid #1e88e5;
+}
+.box02 {
+  max-width:1170px;
+  min-width:360px;
+  position:relative;
+  padding-left:60px;
+  margin-bottom:30px;
+  margin:0px auto 50px auto;
+  padding:0px 30px;
+  overflow: auto;
+}
+.deploy_block	{
+  position:relative;
+  padding-left:60px;
+  margin-bottom:30px;
+}
+.deploy_block_step {
+  position:absolute;
+  top:30px;
+  left:0px;margin-top:-21px;
+  height:42px;
+  width:42px;
+  border:1px solid #D2D8DC;
+  color:#8a9399;
+  font-size:16px;
+  font-weight:500;
+  text-align:center;
+  line-height:40px;
+  border-radius:26px;
+}
+.box_icon {
+  width: 200px;
+  height: 200px;
+  padding: 50px 50px 50px 50px;
+  border: 1px solid #e6e9eb;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  display: inline-block;
+  float: left;
+  background-color: #f1f1f1;
+}
+h3 {
+  font-size:20px;
+  line-height:28px;
+  margin:0px 0px 25px 0px;
+  color:#363B40;
+  font-weight:500;
 }
 </style>

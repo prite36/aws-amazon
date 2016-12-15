@@ -1,13 +1,14 @@
 <template>
   <div class="">
     <h1>{{ msg }}</h1>
+    {{getLocation}}
     <!-- Drop Down List Location  -->
-      <select v-model="getLocation" @click="queryLocation()">
+      <select :disabled="switchLocation" v-model="getLocation5" @click="queryLocation()">
       <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
           {{ dropdownLocations.text }}
       </option>
      </select>
-     <span>Selected Location : {{ getLocation }}</span><br><br>
+     <span>Selected Location : {{ getLocation5 }}</span><br><br>
      <!-- Drop Down DB engine  -->
       <div  v-show="showDBengine">
       <select v-model="getDBengine" @click="queryDBengine()">
@@ -35,13 +36,13 @@
     </div>
 
      {{dataQLocation.length}}
-      {{getDeploy}}
      {{dataQClassDeploy}}
   </div>
 </template>
 
 <script>
 export default {
+  props: ['getLocation'],
   data () {
     return {
       msg: 'RDS',
@@ -49,8 +50,8 @@ export default {
       dataQDBengine: [],
       dataQClassDeploy: [],
       // -----------------------
-      getLocation: '-',
-      getLocation2: '',
+      getLocation5: '-',
+      getLocation6: '',
       getDBengine: '-',
       getDBengine2: '',
       getClassDB: '-',
@@ -107,11 +108,19 @@ export default {
       } else {
         return false
       }
+    },
+    switchLocation: function () {
+      var vm = this
+      if (vm.getLocation === '-') {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
     queryLocation: function () {
-      if (this.getLocation !== '-' && this.getLocation !== this.getLocation2) {
+      if (this.getLocation5 !== '-' && this.getLocation5 !== this.getLocation6) {
         // Clear Data -----------
         this.getDBengine = '-'
         // --- DATA -------
@@ -120,7 +129,7 @@ export default {
         this.dataQClassDeploy = []
         // --- Drop down -------
         //  ---------------------
-        this.getLocation2 = this.getLocation
+        this.getLocation6 = this.getLocation5
         this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/RDS/products.json').then(function (res) {
           var arrData = Object.keys(res.body).map(key => res.body[key])
           arrData.forEach(item => {
@@ -139,7 +148,7 @@ export default {
         // --- Drop down -------
         this.dropdownClassDB = []
         //  ---------------------
-        this.getLocation2 = this.getLocation
+        this.getDBengine2 = this.getDBengine
         var arrData = Object.keys(this.dataQLocation).map(key => this.dataQLocation[key])
         arrData.forEach(item => {
           // if (this.getDBengine.text === 'SQL Server (BYOL: EE, SE)') {
@@ -172,6 +181,8 @@ export default {
         newClass = { newClass }
         this.dropdownClassDB.push(newClass)
       }
+      console.log('aa')
+      this.dropdownClassDB.sort()
       // --------------------------
     },
     queryClassDeploy: function () {
