@@ -58,7 +58,7 @@
       <div class="box_icon"><img src="http://upic.me/i/pg/memoryslot.png" alt=""></div>
       <span class="select" style="height: 120px;">
       <select :disabled="switchRAM" v-model="getRAM" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryRAM()" >
-        <option v-for="dropdownRAM in dropdownRAM " v-bind:value="dropdownRAM.newvRAM" >
+        <option v-for="dropdownRAM in dropdownRAM" v-bind:value="dropdownRAM.newRAM" >
            {{ dropdownRAM.newRAM }}
         </option>
       </select>
@@ -77,13 +77,13 @@
     <div class="tab_dropdown">
       <div class="box_icon"><img src="http://upic.me/i/s6/r3hdd.png" alt=""></div>
       <span class="select" style="height: 120px;">
-      <select :disabled="switchHDD" v-model="getHDD" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryHdd()" >
-        <option v-for="dropdownHDD in dropdownHDD " v-bind:value="dropdownHdd.newvHdd" >
-           {{ dropdownHdd.newHdd }}
+      <select :disabled="switchHDD" v-model="getHDD" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryHDD()" >
+        <option v-for="dropdownHDD in dropdownHDD " v-bind:value="dropdownHDD.newHdd" >
+           {{ dropdownHDD.newHdd }}
         </option>
       </select>
     <div class="tab_text">
-      <span>Selected Storage : {{ getHdd }} Gb</span><br><br>
+      <span>Selected Storage : {{ getHDD }} Gb</span><br><br>
     </div>
     </div>
     </div>
@@ -118,8 +118,8 @@ export default {
       getCPU2: '',
       getRAM: '-',
       getRAM2: '',
-      getHdd: '-',
-      getHdd2: '',
+      getHDD: '-',
+      getHDD2: '',
       // -------------------
       boxLocations: [
        { text: 'US-East / US Standard (Virginia)', value: 'US East (N* Virginia)', img: 'http://upic.me/i/yf/united-states-of-america.png' },
@@ -145,7 +145,7 @@ export default {
       boxOS: [],
       dropdownCPU: [],
       dropdownRAM: [],
-      dropdownHdd: [],
+      dropdownHDD: [],
       priceEc2: []
     }
   },
@@ -292,38 +292,38 @@ export default {
         this.dataQRAM = []
         this.dataQHdd = []
         // --- Drop down -------
-        this.dropdownHdd = []
+        this.dropdownHDD = []
         // ---------------------
         this.getRAM2 = this.getRAM
         var arrData = Object.keys(this.dataQCPU).map(key => this.dataQCPU[key])
         arrData.forEach(item => {
           if (item.attributes.memory === this.getRAM.replace('.', '*')) {  // สลับกลับจากตัว . เป็น *  เพื่อเอาไปหาใน Json
             this.dataQRAM.push(item)
-            // แยก Hdd ลงใน  dropdownHdd
-            let HddExist = this.dropdownHdd.find(function (Hdd) {
+            // แยก Hdd ลงใน  dropdownHDD
+            let HddExist = this.dropdownHDD.find(function (Hdd) {
               return Hdd.newHdd === item.attributes.storage
             })
             if (!HddExist) {
               let newHdd = item.attributes.storage
               newHdd = { newHdd }
-              this.dropdownHdd.push(newHdd)
+              this.dropdownHDD.push(newHdd)
             }
             // --------------------------
           }
         })
       }
     },
-    queryHdd: function () {
-      if (this.getHdd !== '-' && this.getHdd !== this.getHdd2) {
+    queryHDD: function () {
+      if (this.getHDD !== '-' && this.getHDD !== this.getHDD2) {
         // Clear Data -----------
         // --- DATA -------
-        this.dataQHdd = []
+        this.dataQHDD = []
         // ---------------------
-        this.getHdd2 = this.getHdd
+        this.getHDD2 = this.getHDD
         var arrData = Object.keys(this.dataQCPU).map(key => this.dataQRAM[key])
         arrData.forEach(item => {
-          if (item.attributes.storage === this.getHdd) {  // สลับกลับจากตัว . เป็น *  เพื่อเอาไปหาใน Json
-            this.dataQHdd.push(item)
+          if (item.attributes.storage === this.getHDD) {  // สลับกลับจากตัว . เป็น *  เพื่อเอาไปหาใน Json
+            this.dataQHDD.push(item)
           }
         })
       }
