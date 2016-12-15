@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <div id="container"></div>
       <!-- <button @click="Test()">GET DATA</button>
        {{dropdownrds}} -->
-      <router-link to="/EC2">EC2</router-link>
-      <router-link to="/S3">S3</router-link>
-      <router-link to="/RDS">RDS</router-link>
+       <nav class="nav_has-shadow"></nav>
+       <EC2 ></EC2>
+
       <transition name="slide-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
   </div>
 </template>
 
 <script>
+import EC2 from './components/EC2.vue'
 export default {
   name: 'app',
+  components: {
+    EC2
+  },
   data () {
     return {
       dropdownrds: []
@@ -56,29 +58,19 @@ body {
   max-width: 600px;
   font-family: Source Sans Pro, Helvetica, sans-serif;
   text-align: center;
+
 }
 #app a {
   color: #42b983;
   text-decoration: none;
 }
-.logo {
-  width: 100px;
-  height: 100px
+.nav {
+  border-bottom: 2px solid #00d1b2;
+  margin-bottom: 5vh;
 }
-#app a.router-link-active {
-  color: #f66;
-}
-#app li.router-link-active a {
-  color: #f66;
-}
-.slide-fade-enter-active {
-  transition: all .2s ease;
-}
-.slide-fade-leave-active {
-  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-active {
-  padding-left: 10px;
-  opacity: 0;
+.nav_has-shadow {
+  width: 100%;
+  background-color: #00d1b2;
+  height: 7%;
 }
 </style>

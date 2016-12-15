@@ -1,11 +1,20 @@
 <template>
   <div id="">
     <!-- Drop Down List Location  -->
-     <select v-model="getLocation" @click="queryLocation()">
-      <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
-          {{ dropdownLocations.text }}
-      </option>
-     </select>
+    <!-- <a class="button"> -->
+        <!-- <div class="testbutton"><img src="https://firebasestorage.googleapis.com/v0/b/aws-amazon-fe7a5.appspot.com/o/United-States-of-America.png?alt=media&token=76b363de-b3bc-4a4e-bd54-b5d859ffd69e" placeholder="First name" alt="">
+            <br>{{ dropdownLocations[0].text }}
+        </div> -->
+
+    <!-- </a> -->
+      <!-- <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
+          <a class="button">{{ dropdownLocations.text }}</a>
+      </option> -->
+
+      <div class="testbutton" v-for="dropdownLocation in dropdownLocations" @click="queryLocation(dropdownLocation.value)" >
+        <img src="https://firebasestorage.googleapis.com/v0/b/aws-amazon-fe7a5.appspot.com/o/United-States-of-America.png?alt=media&token=76b363de-b3bc-4a4e-bd54-b5d859ffd69e" placeholder="First name" alt="">
+        <br>{{ dropdownLocation.text}}
+      </div>
      <span>Selected Location : {{ getLocation }}</span><br><br>
 
      <!-- Drop Down List OS  -->
@@ -55,7 +64,8 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'EC2',
+  props: [],
   data () {
     return {
       dataQLocation: [],
@@ -132,10 +142,18 @@ export default {
         return false
       }
     }
+    // priceSum2: function () {
+    //   if (this.dataQRAM.length !== 0) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // }
   },
   components: {},
   methods: {
-    queryLocation: function () {
+    queryLocation: function (dropdownLocation) {
+      console.log(dropdownLocation)
       if (this.getLocation !== '-' && this.getLocation !== this.getLocation2) {
         // Clear Data -----------
         this.getOS = '-'
@@ -274,7 +292,11 @@ export default {
             this.dataQHdd.push(item)
           }
         })
-        this.priceSum()
+        let sku = this.dataQHdd[0].sku
+        let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
+        this.$http.get(text).then(function (res) {
+          this.priceEc2 = res.body
+        })
       }
     },
     priceSum: function () {
@@ -294,4 +316,17 @@ h1, h2 {
   font-weight: normal;
 }
 
+.testbutton {
+  width: 10vw;
+  height: 20%;
+  border: 1px solid #e6e9eb;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  display: inline-block;
+
+}
+.testbutton:hover {
+  border: 1px solid #1e88e5;
+}
 </style>
