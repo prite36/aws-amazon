@@ -63,7 +63,7 @@
         </option>
       </select>
     <div class="tab_text">
-      <span>Selected Memory : {{ getRAM }} Gb</span><br><br>
+      <span>Selected Memory : {{ getRAM }} </span><br><br>
     </div>
     </div>
     </div>
@@ -83,7 +83,7 @@
         </option>
       </select>
     <div class="tab_text">
-      <span>Selected Storage : {{ getHDD }} Gb</span><br><br>
+      <span>Selected Storage : {{ getHDD }} </span><br><br>
     </div>
     </div>
     </div>
@@ -91,7 +91,8 @@
 
 
       <button @click="priceSum()">GET DATA</button><br>
-    <br>{{priceEc2}}
+    <br>{{priceEc2}}<br><br>
+
 
      <!-- <option v-for="dataQLocation in dataQLocation">
         {{ dataQLocation |JSON }}
@@ -354,7 +355,7 @@ h1, h2 {
     height: 100%;
     width: 100%;
 }
-*							{box-sizing:border-box;}
+*		{box-sizing:border-box;}
 .buttonchoice {
   width: 40vh;
   height: 20%;
@@ -432,4 +433,8 @@ h3 {
   font-weight:500;
   float: left;
 }
+/*--------------------------------------------------*/
+
+
+
 </style>

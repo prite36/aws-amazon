@@ -1,6 +1,7 @@
 <template>
   <div id="RDS">
     <h1>{{ msg }}</h1>
+    RDS CALCULAROT
     {{getLocation}}
     <!-- Drop Down List Location  -->
       <select :disabled="switchLocation" v-model="getLocation5" @click="queryLocation()">
@@ -10,22 +11,47 @@
      </select>
      <span>Selected Location : {{ getLocation5 }}</span><br><br>
      <!-- Drop Down DB engine  -->
-      <div  v-show="showDBengine">
-      <select v-model="getDBengine" @click="queryDBengine()">
-       <option v-for="dropdownDBengine in dropdownDBengine " v-bind:value="dropdownDBengine.value" v-show = "dropdownDBengine.value.status !== 0">
-           {{ dropdownDBengine.value.text  }}
-       </option>
-      </select>
-      <span>Selected DB engine : {{ getDBengine.text   }}</span><br><br>
-      <!-- Drop Down Class of DB  -->
-       <div  v-show="showClassDB" @click="queryClassDeploy()">
-       <select v-model="getClassDB" >
-        <option v-for="dropdownClassDB in dropdownClassDB " v-bind:value="dropdownClassDB.newClass">
-            {{ dropdownClassDB.newClass  }}
-        </option>
-       </select>
-       <span>Selected Class of DB : {{ getClassDB }}</span><br><br>
+
+     <div class ="box02" >
+     <div class="deploy_block">
+     <div class="deploy_block_step">1</div>
+     <h3>DataBase Engine</h3>
      </div>
+     <div class="tab_dropdown">
+       <div class="box_icon"><img src="http://upic.me/i/cr/acceptdatabase.png" alt=""></div>
+       <span class="select" style="height: 120px;">
+       <select :disabled="switchDBengine" v-model="getDBengine" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryDBengine()" >
+         <option v-for="dropdownDBengine in dropdownDBengine " v-bind:value="dropdownDBengine.value" v-show = "dropdownDBengine.value.status !== 0">
+            {{ dropdownDBengine.value.text }}
+         </option>
+       </select>
+       <div class="tab_text">
+         <span>DB engine: {{ getDBengine.text }} </span><br><br>
+       </div>
+       <!-- Drop Down Class of DB  -->
+       <span class="select" style="height: 120px;">
+       <select :disabled="switchClassDB" v-model="getClassDB" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
+         <option v-for="dropdownClassDB in dropdownClassDB " v-bind:value="dropdownClassDB.newClass" >
+            {{ dropdownDBengine.value.text }}
+         </option>
+       </select>
+       <div class="tab_text">
+         <span>Class of DB : {{ getClassDB }} </span><br><br>
+       </div>
+       <!-- Drop Down Deployment type of DB  -->
+       <span class="select" style="height: 120px;">
+       <select :disabled="switchDeploy" v-model="getDeploy" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
+         <option>Single-AZ</option>
+         <option>Multi-AZ</option>
+       </select>
+       <div class="tab_text">
+         <span>Deployment type of DB : {{ getDeploy }} </span><br><br>
+       </div>
+
+     </div>
+     </div>
+
+
      <!-- Drop Down Deployment type of DB  -->
       <div  v-show="showDeploy" @click="queryClassDeploy()">
       <select v-model="getDeploy" >
@@ -74,25 +100,25 @@ export default {
     }
   },
   computed: {
-    showDBengine: function () {
+    switchDBengine: function () {
       if (this.dataQLocation.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
-    showClassDB: function () {
+    switchClassDB: function () {
       if (this.dataQDBengine.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
-    showDeploy: function () {
+    switchDeploy: function () {
       if (this.dataQDBengine.length !== 0) {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
     },
     switchLocation: function () {
@@ -200,5 +226,83 @@ h1, h2 {
     background-color: #FFFFFF;
     height: 100%;
     width: 100%;
+}
+*		{box-sizing:border-box;}
+.buttonchoice {
+  width: 40vh;
+  height: 20%;
+  border: 1px solid #e6e9eb;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+
+}
+.buttonchoice:hover {
+  border: 1px solid #1e88e5;
+}
+.box02 {
+  max-width:1170px;
+  min-width:360px;
+  position:relative;
+  padding-left:60px;
+  margin-bottom:30px;
+  margin:0px auto 50px auto;
+  padding:0px 30px;
+
+}
+.deploy_block	{
+  position:relative;
+  padding-left:60px;
+  margin-bottom:30px;
+}
+.deploy_block_step {
+  position:absolute;
+  top:30px;
+  left:0px;margin-top:-21px;
+  height:42px;
+  width:42px;
+  border:1px solid #D2D8DC;
+  color:#8a9399;
+  font-size:16px;
+  font-weight:500;
+  text-align:center;
+  line-height:40px;
+  border-radius:26px;
+}
+.box_icon {
+  width: 200px;
+  height: 200px;
+  margin-top: 40px;
+  padding: 50px 50px 50px 50px;
+  border: 1px solid #e6e9eb;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  display: inline-block;
+  float: left;
+  background-color: #ECEFF1;
+
+}
+.tab_dropdown{
+  float: left;
+  margin-left: -7em;
+  margin-bottom: 40px;
+}
+.tab_text{
+  margin-left: 40px;
+  margin-top: 40px;
+  font-size:20px;
+  letter-spacing: 1px;
+  text-align: left;
+}
+h3 {
+  font-size:20px;
+  line-height:28px;
+  margin:15px 10px 30px 10px;
+  color:#363B40;
+  font-weight:500;
+  float: left;
 }
 </style>

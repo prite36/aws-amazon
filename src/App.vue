@@ -2,10 +2,10 @@
   <div id="app">
       <!-- <button @click="Test()">GET DATA</button>
        {{dropdownrds}} -->
-       <nav class="nav_has-shadow"></nav>
-       <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2>
-       <RDS :get-location="getLocation" ></RDS>
 
+       <nav class="nav_has-shadow"></nav>
+       <!-- <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2> -->
+       <RDS :get-location="getLocation" ></RDS>
       <transition name="slide-fade" mode="out-in">
       </transition>
   </div>
@@ -89,4 +89,5 @@ body {
 .header {
   height: 10%;
   }
+
 </style>
