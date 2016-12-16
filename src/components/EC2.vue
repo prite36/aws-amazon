@@ -1,34 +1,149 @@
 <template>
   <div id="EC2" style="height: 100vu">
 
-     <div class ="box02" >
-      <div class="buttonchoice" v-for="boxLocation in boxLocations" @click="queryLocation(boxLocation.value)" >
-        <img :src="boxLocation.img" alt="">
-        <br>{{ boxLocation.text}}
-      </div>
+
+
+<div class="choicezone">
+    <div class ="box02" >
+    <div class="deploy_block">
+    <div class="deploy_block_step">1</div>
+    <h3>Server Location</h3>
+    </div>
     </div>
 
-     <span>Selected Location : {{ getLocation }}</span><br><br>
+
+       <div  class="buttonchoice" @click="queryLocation(boxLocations[0].value,1)" :style="{'border-color': bgcolor }" >
+           <img src="http://upic.me/i/yf/united-states-of-america.png" alt="" align="center">
+           <br><br>US-East / US Standard <br>(Virginia)
+     </div>
+
+       <div  class="buttonchoice" @click="queryLocation(boxLocations[1].value,2)" :style="{'border-color': bgcolor2 }">
+         <img src="http://upic.me/i/yf/united-states-of-america.png" alt="" align="center">
+         <br><br>US-West-2 <br>(Oregon)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[2].value,3)" :style="{'border-color': bgcolor3 }">
+       <img src="http://upic.me/i/yf/united-states-of-america.png" alt="" align="center">
+       <br><br>US-West <br>(Northern California)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[3].value,4)" :style="{'border-color': bgcolor4 }">
+       <img src="http://upic.me/i/p0/ireland.png" alt="" align="center">
+       <br><br>Europe <br>(Ireland)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[4].value,5)" :style="{'border-color': bgcolor5 }">
+       <img src="http://upic.me/i/57/germany.png" alt="" align="center">
+       <br><br>Europe Central <br>(Frankfurt)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[5].value,6)" :style="{'border-color': bgcolor6 }">
+       <img src="http://upic.me/i/79/singapore.png" alt="" align="center">
+       <br><br>Asia Pacific <br>(Singapore)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[6].value,7)" :style="{'border-color': bgcolor7 }">
+       <img src="http://upic.me/i/o9/japan.png" alt="" align="center">
+       <br><br>Asia Pacific <br>(Japan)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[7].value,8)" :style="{'border-color': bgcolor8 }">
+       <img src="http://upic.me/i/on/australia.png" alt="" align="center">
+       <br><br>Asia Pacific <br>(Sydney)
+     </div>
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[8].value,9)" :style="{'border-color': bgcolor9 }">
+       <img src="http://upic.me/i/4h/korea-south.png" alt="" align="center">
+       <br><br>Asia Pacific <br>(Seoul)
+     </div>
+
+     <div  class="buttonchoice" @click="queryLocation(boxLocations[9].value,10)" :style="{'border-color': bgcolor10 }">
+       <img src="http://upic.me/i/x9/india.png" alt="" align="center">
+       <br><br>Asia Pacific <br>(Mumbai)
+     </div>
+
+
+     <div class="buttonchoice" @click="queryLocation(boxLocations[9].value,11)" :style="{'border-color': bgcolor11 }">
+       <img src="http://upic.me/i/db/brazil.png" alt="" align="center">
+       <br><br>South America<br> (Sao Paulo)
+
+     </div>
+   </div>
+
+
+
+<div class="choiceos">
+
+
+   <div class ="box02" >
+   <div class="deploy_block">
+   <div class="deploy_block_step">1</div>
+   <h3>Server Type</h3>
+   </div>
+   </div>
+
+              <div class="buttonchoiceos"@click="queryOS(boxOS[0].value,0)" :style="{'border-color': num }">
+               <img src="http://upic.me/i/nz/windows-8-icon-logo-vector-400x400.png" alt="" align="center" width="100px" >
+               <br><br>{{nameOS[0].value.text}}
+             </div>
+
+             <div class="buttonchoiceos"@click="queryOS(boxOS[1].value,1)" :style="{'border-color': num2 }">
+              <img src="http://upic.me/i/nz/windows-8-icon-logo-vector-400x400.png" alt="" align="center"  width="100px">
+             <br> {{nameOS[1].value.text}}
+            </div>
+
+            <div class="buttonchoiceos"@click="queryOS(boxOS[2].value,2)" :style="{'border-color': num3 }">
+             <img src="http://upic.me/i/nz/windows-8-icon-logo-vector-400x400.png" alt="" align="center" width="100px">
+             <br>{{nameOS[2].value.text}}
+           </div>
+
+           <div class="buttonchoiceos" @click="queryOS(boxOS[3].value,3)" :style="{'border-color': num4 }">
+            <img src="http://upic.me/i/nz/windows-8-icon-logo-vector-400x400.png" alt="" align="center" width="100px">
+            <br>{{nameOS[3].value.text}}
+          </div>
+
+          <div class="buttonchoiceos"  @click="queryOS(boxOS[4].value,4)" :style="{'border-color': num5 }">
+           <img src="http://upic.me/i/x5/linux1600.png" alt="" align="center" width="100px">
+           <br><br>{{nameOS[4].value.text}}
+         </div>
+
+         <div class="buttonchoiceos" @click="queryOS(boxOS[5].value,5)" :style="{'border-color': num6 }">
+          <img src="http://upic.me/i/8x/redhat.png" alt="" align="center" width="100px">
+         <br> {{nameOS[5].value.text}}
+        </div>
+
+        <div class="buttonchoiceos" @click="queryOS(boxOS[6].value,6)" :style="{'border-color': num7 }">
+         <img src="http://upic.me/i/nw/esuse.png" alt="" align="center" width="100px">
+         <br>{{nameOS[6].value.text}}
+       </div>
+
+       </div>
+<br>
+
+
+
+
 
      <!-- Drop Down List OS  -->
 
-      <select :disabled="switchOS" v-model="getOS" @click="queryOS()">
+      <!-- <select :disabled="switchOS" v-model="getOS" @click="queryOS()">
        <option v-for="boxOS in boxOS " v-bind:value="boxOS.value" v-show = "boxOS.value.status !== 0">
            {{ boxOS.value.text  }}
        </option>
       </select>
-      <span>Selected OS : {{ getOS.text  }}</span><br><br>
+      <span>Selected OS : {{ getOS.text  }}</span><br><br> -->
 
     <!-- Drop Down List vCPU  -->
+<div class="tab">
+
     <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">1</div>
+    <div class="deploy_block_step">2</div>
     <h3>vCPU Size</h3>
     </div>
-    <div class="tab_dropdown">
+<div class="tab_dropdown">
       <div class="box_icon"><img src="http://upic.me/i/dr/electronics.png" alt=""></div>
       <span class="select" style="height: 120px;">
-      <select :disabled="switchCPU" v-model="getCPU" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryCPU()" >
+      <select :disabled="switchCPU" v-model="getCPU" style="width: 300px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryCPU()" >
         <option v-for="dropdownCPU in dropdownCPU " v-bind:value="dropdownCPU.newvCPU" >
            {{ dropdownCPU.newvCPU }}
         </option>
@@ -37,18 +152,19 @@
       <span>Selected vCPU : {{ getCPU }} Core</span><br><br>
     </div>
     </div>
-    </div>
+  </div>
     <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List RAM  -->
-    <div class ="box02" >
+  <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">2</div>
+    <div class="deploy_block_step">3</div>
     <h3>Memory Size</h3>
     </div>
-    <div class="tab_dropdown">
+
+  <div class="tab_dropdown">
       <div class="box_icon"><img src="http://upic.me/i/pg/memoryslot.png" alt=""></div>
       <span class="select" style="height: 120px;">
-      <select :disabled="switchRAM" v-model="getRAM" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryRAM()" >
+      <select :disabled="switchRAM" v-model="getRAM" style="width: 300px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryRAM()" >
         <option v-for="dropdownRAM in dropdownRAM" v-bind:value="dropdownRAM.newRAM" >
            {{ dropdownRAM.newRAM }}
         </option>
@@ -56,19 +172,20 @@
     <div class="tab_text">
       <span>Selected Memory : {{ getRAM }} </span><br><br>
     </div>
-    </div>
-    </div>
+  </div>
+  </div>
     <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List Hdd  -->
     <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">3</div>
+    <div class="deploy_block_step">4</div>
     <h3>Memory Size</h3>
     </div>
+
     <div class="tab_dropdown">
       <div class="box_icon"><img src="http://upic.me/i/s6/r3hdd.png" alt=""></div>
       <span class="select" style="height: 120px;">
-      <select :disabled="switchHDD" v-model="getHDD" style="width: 250px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryHDD()" >
+      <select :disabled="switchHDD" v-model="getHDD" style="width: 300px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryHDD()" >
         <option v-for="dropdownHDD in dropdownHDD " v-bind:value="dropdownHDD.newHdd" >
            {{ dropdownHDD.newHdd }}
         </option>
@@ -77,8 +194,8 @@
       <span>Selected Storage : {{ getHDD }} </span>
     </div>
     <br>Price : {{priceEc2}}<br><br>
-    </div>
-    </div>
+  </div>
+  </div>
     <!-- ++++++++++++++++++++++ -->
 
 
@@ -87,6 +204,7 @@
         {{ dataQLocation |JSON }}
     </option> -->
   </div>
+</div>
 </template>
 
 <script>
@@ -111,6 +229,24 @@ export default {
       getRAM2: '',
       getHDD: '-',
       getHDD2: '',
+      bgcolor: '#bdbdbd',
+      bgcolor2: '#bdbdbd',
+      bgcolor3: '#bdbdbd',
+      bgcolor4: '#bdbdbd',
+      bgcolor5: '#bdbdbd',
+      bgcolor6: '#bdbdbd',
+      bgcolor7: '#bdbdbd',
+      bgcolor8: '#bdbdbd',
+      bgcolor9: '#bdbdbd',
+      bgcolor10: '#bdbdbd',
+      bgcolor11: '#bdbdbd',
+      num: '#bdbdbd',
+      num2: '#bdbdbd',
+      num3: '#bdbdbd',
+      num4: '#bdbdbd',
+      num5: '#bdbdbd',
+      num6: '#bdbdbd',
+      num7: '#bdbdbd',
       // -------------------
       boxLocations: [
        { text: 'US-East / US Standard (Virginia)', value: 'US East (N* Virginia)', img: 'http://upic.me/i/yf/united-states-of-america.png' },
@@ -183,9 +319,153 @@ export default {
   },
   components: {},
   methods: {
-    queryLocation: function (boxLocation) {
+    queryLocation: function (boxLocations, br) {
+      console.log(br)
+      if (br === 1) {
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor = '#0d47a1'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 2) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#0d47a1'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 3) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#0d47a1'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 4) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#0d47a1'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 5) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#0d47a1'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 6) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#0d47a1'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 7) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#0d47a1'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 8) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#0d47a1'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 9) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#0d47a1'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 10) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#0d47a1'
+        this.bgcolor11 = '#bdbdbd'
+      }
+      if (br === 11) {
+        this.bgcolor = '#bdbdbd'
+        this.bgcolor2 = '#bdbdbd'
+        this.bgcolor3 = '#bdbdbd'
+        this.bgcolor4 = '#bdbdbd'
+        this.bgcolor5 = '#bdbdbd'
+        this.bgcolor6 = '#bdbdbd'
+        this.bgcolor7 = '#bdbdbd'
+        this.bgcolor8 = '#bdbdbd'
+        this.bgcolor9 = '#bdbdbd'
+        this.bgcolor10 = '#bdbdbd'
+        this.bgcolor11 = '#0d47a1'
+      }
       var vm = this
-      vm.getLocation = boxLocation
+      vm.getLocation = boxLocations
       if (this.getLocation !== '-' && this.getLocation !== this.getLocation2) {
         // Clear Data -----------
         this.getOS = '-'
@@ -230,39 +510,101 @@ export default {
       else if (location === 'US West (Oregon)') this.boxOS[3].value.status = 1
       else if (location === 'EU (Ireland)') this.boxOS[3].value.status = 1
     },
-    queryOS: function () {
-      if (this.getOS !== '-' && this.getOS !== this.getOS2) {
-        // Clear Data -----------
-        this.getCPU = '-'
-        // --- DATA -------
-        this.dataQOS = []
-        this.dataQCPU = []
-        this.dataQRAM = []
-        this.dataQHdd = []
-        // --- Drop down -------
-        this.dropdownCPU = []
-        // ---------------------
-        this.getOS2 = this.getOS
-        var arrData = Object.keys(this.dataQLocation).map(key => this.dataQLocation[key])
-        arrData.forEach(item => {
-          if (item.attributes.operatingSystem === this.getOS.os && item.attributes.preInstalledSw === this.getOS.preInstall) {
-            this.dataQOS.push(item)
-            // แยก vCPU ลงใน  dropdownCPU
-            let CPUExist = this.dropdownCPU.find(function (vCPU) {
-              return vCPU.newvCPU === item.attributes.vcpu
-            })
-            if (!CPUExist) {
-              let newvCPU = item.attributes.vcpu
-              newvCPU = { newvCPU }
-              this.dropdownCPU.push(newvCPU)
-            }
-            // --------------------------
-          }
-        })
-        // this.dropdownCPU.sort(function (a) {
-        //   return a.newvCPU
-        // })
+    queryOS: function (getOS, num) {
+      this.getOS = getOS
+      if (num === 0) {
+        this.num = '#0d47a1'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#bdbdbd'
       }
+      if (num === 1) {
+        this.num = '#bdbdbd'
+        this.num2 = '#0d47a1'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#bdbdbd'
+      }
+      if (num === 2) {
+        this.num = '#bdbdbd'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#0d47a1'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#bdbdbd'
+      }
+      if (num === 3) {
+        this.num = '#bdbdbd'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#0d47a1'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#bdbdbd'
+      }
+      if (num === 4) {
+        this.num = '#bdbdbd'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#0d47a1'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#bdbdbd'
+      }
+      if (num === 5) {
+        this.num = '#bdbdbd'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#0d47a1'
+        this.num7 = '#bdbdbd'
+      }
+      if (num === 6) {
+        this.num = '#bdbdbd'
+        this.num2 = '#bdbdbd'
+        this.num3 = '#bdbdbd'
+        this.num4 = '#bdbdbd'
+        this.num5 = '#bdbdbd'
+        this.num6 = '#bdbdbd'
+        this.num7 = '#0d47a1'
+      }
+      // Clear Data -----------
+      this.getCPU = '-'
+      // --- DATA -------
+      this.dataQOS = []
+      this.dataQCPU = []
+      this.dataQRAM = []
+      this.dataQHdd = []
+      // --- Drop down -------
+      this.dropdownCPU = []
+      // ---------------------
+      this.getOS2 = this.getOS
+      var arrData = Object.keys(this.dataQLocation).map(key => this.dataQLocation[key])
+      arrData.forEach(item => {
+        if (item.attributes.operatingSystem === this.getOS.os && item.attributes.preInstalledSw === this.getOS.preInstall) {
+          this.dataQOS.push(item)
+          // แยก vCPU ลงใน  dropdownCPU
+          let CPUExist = this.dropdownCPU.find(function (vCPU) {
+            return vCPU.newvCPU === item.attributes.vcpu
+          })
+          if (!CPUExist) {
+            let newvCPU = item.attributes.vcpu
+            newvCPU = { newvCPU }
+            this.dropdownCPU.push(newvCPU)
+          }
+          // --------------------------
+        }
+      })
+      // this.dropdownCPU.sort(function (a) {
+      //   return a.newvCPU
+      // })
     },
     queryCPU: function () {
       if (this.getCPU !== '-' && this.getCPU !== this.getCPU2) {
@@ -361,23 +703,83 @@ h1, h2 {
 }
 #EC2{
     background-color: #FFFFFF;
-    width:  100vu;
+    height: 100vu;
+    width:  100%;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+
+
 }
 *		{box-sizing:border-box;}
+.choicezone {
+  padding-left: 17%;
+  padding-right: 3%;
+  text-align: left;
+
+}
 .buttonchoice {
-  width: 40vh;
-  height: 20%;
-  border: 1px solid #e6e9eb;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 3px;
-  display: inline-block;
-  cursor: pointer;
+  width: 12%;
+    height: 18.2vh;
+    border: 1px solid #bdbdbd;
+    border-width: 2px;
+    border-radius: 5%;
+    display: inline-table;
+      cursor: pointer;
+     margin: 7px;
+     padding: 17px;
+     text-align: center;;
+     background-color: #ffffff;
+
+
 
 }
 .buttonchoice:hover {
   border: 1px solid #1e88e5;
 }
+.buttonchoice:active{
+  background-color: #bbdefb;
+}
+.choiceos {
+  padding-left: 17%;
+  padding-right: 3%;
+  text-align: left;
+}
+.buttonchoiceos {
+  width: 10vw ;
+  height: 24.5vh;
+  border: 1px solid #bdbdbd;
+  border-width: 2px;
+  border-radius: 5%;
+  display: inline-table;
+  cursor: pointer;
+   margin: 7px;
+   padding: 17px;
+   text-align: center;;
+   background-color: #ffffff;
+}
+.buttonchoiceos:hover {
+  border: 2px solid #0d47a1;
+  background-color: #e0f7fa;
+}
+.buttonchoiceos:active{
+  background-color: #bbdefb;
+}
+
+
+.tab{
+
+  height: 100%;
+  width:  100vu;
+  margin-top: -1%;
+  padding: 0%;
+  font-size: 100%;
+}
+
+
+
+
+
 .box02 {
   max-width:1170px;
   min-width:360px;
@@ -386,7 +788,7 @@ h1, h2 {
   margin-bottom:30px;
   margin:0px auto 50px auto;
   padding:0px 30px;
-  overflow: auto;
+  overflow: hidden;
 }
 .deploy_block	{
   position:relative;
@@ -425,6 +827,7 @@ h1, h2 {
   float: left;
   margin-left: -7em;
   margin-bottom: 40px;
+
 }
 .tab_text{
   margin-left: 40px;

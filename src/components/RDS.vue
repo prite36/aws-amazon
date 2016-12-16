@@ -1,18 +1,19 @@
 <template>
   <div id="RDS">
     <h1>{{ msg }}</h1>
-
     <br>RDS CALCULAROT<br><br>
+
     <div class ="box02" >
     <div class="deploy_block">
     <div class="deploy_block_step">1</div>
     <h3>DataBase Engine</h3>
     </div>
+
     <div class="tab_dropdown">
      <div class="box_icon"><img src="http://upic.me/i/cr/acceptdatabase.png" alt=""></div>
      <span class="select" style="height: 120px;">
      <!-- Drop Down DB engine  -->
-     <select :disabled="showDBengine"  v-model="getDBengine" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryDBengine()">
+     <select :disabled="showDBengine"  v-model="getDBengine" style="width: 400px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryDBengine()">
        <option v-for="dropdownDBengine in dropdownDBengine " v-bind:value="dropdownDBengine.value" v-show = "dropdownDBengine.value.status !== 0">
           {{ dropdownDBengine.value.text }}
        </option>
@@ -22,9 +23,10 @@
      </div>
      <!-- ***************************************** -->
      <!-- Drop Down Class of DB  -->
-     <select :disabled="showClassDB"  v-model="getClassDB" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()">
+     <span class="select" style="height: 120px;">
+     <select :disabled="showClassDB"  v-model="getClassDB" style="width: 400px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()">
        <option v-for="dropdownClassDB in dropdownClassDB  " v-bind:value="dropdownClassDB.newClass" >
-          {{ dropdownClassDB.newClass }}
+          {{ dropdownClassDB.newClass.replace('*', '.') }}
        </option>
      </select>
      <div class="tab_text">
@@ -33,7 +35,7 @@
      <!-- ***************************************** -->
      <!-- Drop Down Deployment type of DB  -->
     <span class="select" style="height: 120px;">
-    <select :disabled="showDeploy" v-model="getDeploy" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
+    <select :disabled="showDeploy" v-model="getDeploy" style="width: 400px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
       <option>Single-AZ</option>
       <option>Multi-AZ</option>
     </select>
@@ -235,15 +237,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+/*h1, h2 {
   font-weight: normal;
-}
+}*/
 #RDS{
-    background-color: #FFFFFF;
-    height: 100%;
+    /*background-color: #FFFFFF;
+    /*height: 100%;*/
     width: 100%;
+    /*border: 1px solid black;*/
+    background-color: #FFFFFF;
+    height: 100vh;
+    width:  100%;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
 }
-*		{box-sizing:border-box;}
 .buttonchoice {
   width: 40vh;
   height: 20%;

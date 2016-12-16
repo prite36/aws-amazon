@@ -7,17 +7,41 @@
        <RDS :get-location="getLocation" :fu-pricerds="fuPricerds" :price-rds="priceRds"></RDS><br>
        <input type="radio" id="Hour" value="Hour" v-model="typePrice">
       <label for="one">Hour</label>
-      <br>
+      &nbsp;&nbsp;
       <input type="radio" id="Day" value="Day" v-model="typePrice">
       <label for="two">Day</label>
-      <br>
+      &nbsp;&nbsp;
       <input type="radio" id="Month" value="Month" v-model="typePrice">
       <label for="two">Month</label>
       <br>
-      <span>Type: {{ typePrice }}</span>
-      <br><br>{{totalPrice}}
-      <transition name="slide-fade" mode="out-in">
-      </transition>
+
+      <br><br>
+   <!-- ********************** -->
+   <div class="Showsum">
+
+   <p class="inset">$ {{totalPrice}}</p>
+   </div>
+     <div class="signup-form--container">
+   <div class="signup-form--container--inner">
+             <div class="herounit__signup">
+               <div class="herounit__title">
+                 <div class="herounit__title-heading">Try Wake free for 30 days</div>
+                 <p class="signup-form__text">No credit card required. Cancel anytime.</p>
+                 <a href="#" class="btn btn-hero btn-hero--white">Home</a>
+               </div>
+             </div>
+           </div>
+           </div>
+
+
+   <a rel="nofollow" style="display:scroll;position:fixed;bottom:10px;right:5px;" href="#" title="Back to Top"><img src="http://2.bp.blogspot.com/-BkNGUImcIV4/USDcBMHYjqI/AAAAAAAAAig/qEtwRO4pH6Q/s1600/back+to+top.png "/></a><!--mybloggersworld.com-->
+
+
+   <hr><br>
+         <div
+
+
+
   </div>
 </template>
 
@@ -129,5 +153,84 @@ body {
 .header {
   height: 10%;
   }
+
+
+  /*********************************/
+  .Showsum{
+/*border-style: groove;*/
+padding-left: 40%;
+padding-right: 38%;
+text-align: center;
+}
+.inset{
+       width: 100%;
+       padding: 5% 10% 5% 10%;
+       box-sizing: border-box;
+       outline: none;
+       text-align: center;
+       font-size:17px;
+       border: 3px solid #4caf50;
+       background-color: #b9f6ca;
+       font-family: fantasy;
+       letter-spacing: 2.5pt;
+   }
+div{
+align-content: center;
+}
+h1{
+  align-content: center;
+}
+h3{
+  text-align: left;
+}
+.signup-form--container--inner {
+    height: 100%;
+     transition: opacity .2s;
+      background: linear-gradient(to bottom,#010101 0,#003197 60%,#5540cb 100%);
+}
+.herounit__signup {
+    font-size: 18px;
+    color: #8abfff;
+    margin: 0 auto;
+    padding: 80px 0 70px;
+    width: 38%;
+    min-width: 600px;
+    transition: all .4s;
+}
+.herounit__title {
+    margin: 0 auto 40px;
+    line-height: 1.45;
+    transition: all .4s;
+}
+.herounit__title-heading {
+    font-size: 30px;
+    color: #fff;
+}
+.herounit__signup a {
+    padding: .4em 1.5em;
+}
+.btn-hero--play, .btn-hero--white {
+    color: #006dfe;
+    background-color: #fff;
+}
+.btn-hero {
+    font-size: 17px;
+    box-sizing: border-box;
+    height: 2.4em;
+    border-radius: 1.2em;
+    padding: .6em 1.5em;
+}
+.btn {
+    font-size: 100%;
+    text-decoration: none;
+    font-family: inherit;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+  /*********************************/
 
 </style>
