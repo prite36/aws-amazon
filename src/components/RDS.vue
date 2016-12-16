@@ -1,65 +1,57 @@
 <template>
   <div id="RDS">
     <h1>{{ msg }}</h1>
-    RDS CALCULAROT
-    {{getLocation}}
-    <!-- Drop Down List Location  -->
-      <select :disabled="switchLocation" v-model="getLocation5" @click="queryLocation()">
-      <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
-          {{ dropdownLocations.text }}
-      </option>
-     </select>
-     <span>Selected Location : {{ getLocation5 }}</span><br><br>
+
+    <br>RDS CALCULAROT<br><br>
+    <div class ="box02" >
+    <div class="deploy_block">
+    <div class="deploy_block_step">1</div>
+    <h3>DataBase Engine</h3>
+    </div>
+    <div class="tab_dropdown">
+     <div class="box_icon"><img src="http://upic.me/i/cr/acceptdatabase.png" alt=""></div>
+     <span class="select" style="height: 120px;">
      <!-- Drop Down DB engine  -->
-
-     <div class ="box02" >
-     <div class="deploy_block">
-     <div class="deploy_block_step">1</div>
-     <h3>DataBase Engine</h3>
+     <select :disabled="showDBengine"  v-model="getDBengine" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryDBengine()">
+       <option v-for="dropdownDBengine in dropdownDBengine " v-bind:value="dropdownDBengine.value" v-show = "dropdownDBengine.value.status !== 0">
+          {{ dropdownDBengine.value.text }}
+       </option>
+     </select>
+     <div class="tab_text">
+       <span>DB engine: {{ getDBengine.text }} </span><br><br>
      </div>
-     <div class="tab_dropdown">
-       <div class="box_icon"><img src="http://upic.me/i/cr/acceptdatabase.png" alt=""></div>
-       <span class="select" style="height: 120px;">
-       <select :disabled="switchDBengine" v-model="getDBengine" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryDBengine()" >
-         <option v-for="dropdownDBengine in dropdownDBengine " v-bind:value="dropdownDBengine.value" v-show = "dropdownDBengine.value.status !== 0">
-            {{ dropdownDBengine.value.text }}
-         </option>
-       </select>
-       <div class="tab_text">
-         <span>DB engine: {{ getDBengine.text }} </span><br><br>
-       </div>
-       <!-- Drop Down Class of DB  -->
-       <span class="select" style="height: 120px;">
-       <select :disabled="switchClassDB" v-model="getClassDB" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
-         <option v-for="dropdownClassDB in dropdownClassDB " v-bind:value="dropdownClassDB.newClass" >
-            {{ dropdownDBengine.value.text }}
-         </option>
-       </select>
-       <div class="tab_text">
-         <span>Class of DB : {{ getClassDB }} </span><br><br>
-       </div>
-       <!-- Drop Down Deployment type of DB  -->
-       <span class="select" style="height: 120px;">
-       <select :disabled="switchDeploy" v-model="getDeploy" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
-         <option>Single-AZ</option>
-         <option>Multi-AZ</option>
-       </select>
-       <div class="tab_text">
-         <span>Deployment type of DB : {{ getDeploy }} </span><br><br>
-       </div>
-
+     <!-- ***************************************** -->
+     <!-- Drop Down Class of DB  -->
+     <select :disabled="showClassDB"  v-model="getClassDB" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()">
+       <option v-for="dropdownClassDB in dropdownClassDB  " v-bind:value="dropdownClassDB.newClass" >
+          {{ dropdownClassDB.newClass }}
+       </option>
+     </select>
+     <div class="tab_text">
+       <span>DB engine: {{ getClassDB }} </span><br><br>
      </div>
-     </div>
+     <!-- ***************************************** -->
+     <!-- Drop Down Deployment type of DB  -->
+    <span class="select" style="height: 120px;">
+    <select :disabled="showDeploy" v-model="getDeploy" style="width: 368px;height: 40px;margin-top: 40px;margin-left: 40px;" @click="queryClassDeploy()" >
+      <option>Single-AZ</option>
+      <option>Multi-AZ</option>
+    </select>
+    <div class="tab_text">
+      <span>Deployment type of DB : {{ getDeploy }} </span><br><br>
+    </div>
+   </div>
+  </div>
 
 
      <!-- Drop Down Deployment type of DB  -->
-      <div  v-show="showDeploy" @click="queryClassDeploy()">
+      <!-- <div  v-show="showDeploy" @click="queryClassDeploy()">
       <select v-model="getDeploy" >
           <option>Single-AZ</option>
           <option>Multi-AZ</option>
       </select>
       <span>Selected Deployment type of DB : {{ getDeploy   }}</span><br><br>
-    </div>
+    </div> -->
 
      {{dataQLocation.length}}
      {{dataQClassDeploy}}
@@ -72,16 +64,20 @@ export default {
   data () {
     return {
       msg: 'RDS',
+      allDataRDS: {},
       dataQLocation: [],
       dataQDBengine: [],
       dataQClassDeploy: [],
       // -----------------------
+      getLocation: '-',
+      getLocation2: '',
       getDBengine: '-',
       getDBengine2: '',
       getClassDB: '-',
       getClassDB2: '',
       getDeploy: 'Single-AZ',
       getDeploy2: '',
+      allData: {},
       // -----------------------
       dropdownDBengine: [
         { value: {text: 'Aurora', db: 'Amazon Aurora', status: 1} },
@@ -100,38 +96,30 @@ export default {
     }
   },
   computed: {
-    switchDBengine: function () {
+    showDBengine: function () {
       if (this.dataQLocation.length !== 0) {
         return false
       } else {
         return true
       }
     },
-    switchClassDB: function () {
+    showClassDB: function () {
       if (this.dataQDBengine.length !== 0) {
         return false
       } else {
         return true
       }
     },
-    switchDeploy: function () {
+    showDeploy: function () {
       if (this.dataQDBengine.length !== 0) {
         return false
       } else {
         return true
-      }
-    },
-    switchLocation: function () {
-      var vm = this
-      if (vm.getLocation === '-') {
-        return true
-      } else {
-        return false
       }
     }
   },
-  methods: {
-    queryLocationRDS: function () {
+  watch: {
+    getLocation: function (val, oldVal) {
       if (this.getLocation !== '-') {
         // Clear Data -----------
         this.getDBengine = '-'
@@ -141,16 +129,32 @@ export default {
         this.dataQClassDeploy = []
         // --- Drop down -------
         //  ---------------------
-        this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/RDS/products.json').then(function (res) {
-          var arrData = Object.keys(res.body).map(key => res.body[key])
+        this.getLocation2 = this.getLocation
+        // *****************************************
+        var arrData = {}
+        if (Object.keys(this.allDataRDS).length === 0) {
+          this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/RDS/products.json').then(function (res) {
+            this.allDataRDS = JSON.parse(JSON.stringify(res.body))
+            arrData = Object.keys(res.body).map(key => res.body[key])
+            arrData.forEach(item => {
+              if (item.attributes.location === this.getLocation) {
+                this.dataQLocation.push(item)
+              }
+            })
+          })
+        } else {
+          arrData = Object.keys(this.allDataRDS).map(key => this.allDataRDS[key])
           arrData.forEach(item => {
             if (item.attributes.location === this.getLocation) {
-              this.dataQLocationRDS.push(item)
+              this.dataQLocation.push(item)
             }
           })
-        })
+        }
+        // *****************************************
       }
-    },
+    }
+  },
+  methods: {
     queryDBengine: function () {
       if (this.getDBengine !== '-' && this.getDBengine !== this.getDBengine2) {
         // Clear Data -----------
@@ -169,7 +173,8 @@ export default {
           //   }
           // }
           if (this.getDBengine.text === 'Aurora' || this.getDBengine.text === 'MySQL' || this.getDBengine.text === 'MariaDB' || this.getDBengine.text === 'PostgreSQL') {
-            if (item.attributes.databaseEngine === this.getDBengine.db && item.attributes.licenseModel === 'License included') {
+            // if (item.attributes.databaseEngine === this.getDBengine.db && item.attributes.licenseModel === 'License included') {
+            if (item.attributes.databaseEngine === this.getDBengine.db) {
               this.dataQDBengine.push(item)
               this.getDropdownClass(item)
             }
@@ -192,8 +197,6 @@ export default {
         newClass = { newClass }
         this.dropdownClassDB.push(newClass)
       }
-      console.log('aa')
-      this.dropdownClassDB.sort()
       // --------------------------
     },
     queryClassDeploy: function () {

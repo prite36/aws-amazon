@@ -106,7 +106,7 @@ export default {
   props: ['getLocation', 'fuLocation'],
   data () {
     return {
-      allDataEC2: [],
+      allDataEC2: {},
       dataQLocation: [],
       dataQOS: [],
       dataQCPU: [],
