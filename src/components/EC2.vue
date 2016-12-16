@@ -1,15 +1,6 @@
 <template>
   <div id="EC2" style="height: 100vu">
-    <!-- Drop Down List Location  -->
-    <!-- <a class="button"> -->
-        <!-- <div class="testbutton"><img src="https://firebasestorage.googleapis.com/v0/b/aws-amazon-fe7a5.appspot.com/o/United-States-of-America.png?alt=media&token=76b363de-b3bc-4a4e-bd54-b5d859ffd69e" placeholder="First name" alt="">
-            <br>{{ dropdownLocations[0].text }}
-        </div> -->
 
-    <!-- </a> -->
-      <!-- <option v-for="dropdownLocations in dropdownLocations" v-bind:value="dropdownLocations.value">
-          <a class="button">{{ dropdownLocations.text }}</a>
-      </option> -->
      <div class ="box02" >
       <div class="buttonchoice" v-for="boxLocation in boxLocations" @click="queryLocation(boxLocation.value)" >
         <img :src="boxLocation.img" alt="">
@@ -83,15 +74,13 @@
         </option>
       </select>
     <div class="tab_text">
-      <span>Selected Storage : {{ getHDD }} </span><br><br>
+      <span>Selected Storage : {{ getHDD }} </span>
     </div>
+    <br>Price : {{priceEc2}}<br><br>
     </div>
     </div>
     <!-- ++++++++++++++++++++++ -->
 
-
-      <button @click="priceSum()">GET DATA</button><br>
-    <br>{{priceEc2}}<br><br>
 
 
      <!-- <option v-for="dataQLocation in dataQLocation">
@@ -103,7 +92,7 @@
 <script>
 export default {
   name: 'EC2',
-  props: ['getLocation', 'fuLocation'],
+  props: ['getLocation', 'fuLocation', 'fuPriceec2', 'priceEc2'],
   data () {
     return {
       allDataEC2: {},
@@ -147,8 +136,7 @@ export default {
       boxOS: [],
       dropdownCPU: [],
       dropdownRAM: [],
-      dropdownHDD: [],
-      priceEc2: []
+      dropdownHDD: []
     }
   },
   computed: {
@@ -351,7 +339,6 @@ export default {
           if (item.attributes.storage === this.getHDD) {  // สลับกลับจากตัว . เป็น *  เพื่อเอาไปหาใน Json
             vm.dataQHDD.push(item)
           }
-          console.log(vm.dataQHDD[0])
         })
       }
     },
@@ -359,7 +346,8 @@ export default {
       let sku = this.dataQHDD[0].sku
       let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
       this.$http.get(text).then(function (res) {
-        this.priceEc2 = res.body
+        this.priceEc2 = res.body.replace('*', '.')
+        this.fuPriceec2(this.priceEc2)
       })
     }
   }

@@ -2,10 +2,20 @@
   <div id="app">
       <!-- <button @click="Test()">GET DATA</button>
        {{dropdownrds}} -->
-
        <nav class="nav_has-shadow"></nav>
-       <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2>
-       <RDS :get-location="getLocation" ></RDS>
+       <EC2 :get-location="getLocation" :fu-location="fuLocation" :fu-priceec2="fuPriceec2":price-ec2="priceEc2"></EC2>
+       <RDS :get-location="getLocation" :fu-pricerds="fuPricerds" :price-rds="priceRds"></RDS><br>
+       <input type="radio" id="Hour" value="Hour" v-model="typePrice">
+      <label for="one">Hour</label>
+      <br>
+      <input type="radio" id="Day" value="Day" v-model="typePrice">
+      <label for="two">Day</label>
+      <br>
+      <input type="radio" id="Month" value="Month" v-model="typePrice">
+      <label for="two">Month</label>
+      <br>
+      <span>Type: {{ typePrice }}</span>
+      <br><br>{{totalPrice}}
       <transition name="slide-fade" mode="out-in">
       </transition>
   </div>
@@ -23,7 +33,11 @@ export default {
   data () {
     return {
       getLocation: '-',
-      dropdownrds: []
+      dropdownrds: [],
+      priceEc2: 0,
+      priceRds: 0,
+      totalPrice: 0,
+      typePrice: 'Day'
     }
   },
   methods: {
@@ -44,6 +58,32 @@ export default {
     },
     fuLocation: function (getLocation) {
       this.getLocation = getLocation
+    },
+    fuPriceec2: function (ec2) {
+      this.priceEc2 = ec2
+    },
+    fuPricerds: function (rds) {
+      this.priceRds = rds
+    },
+    calPrice: function (ec2, rds, type) {
+      if (type === 'Hour') {
+        this.totalPrice = (parseInt(ec2)) + (parseInt(rds))
+      } else if (type === 'Day') {
+        this.totalPrice = (ec2 * 24) + (rds * 24)
+      } else if (type === 'Month') {
+        this.totalPrice = (ec2 * 24 * 30) + (rds * 24 * 30)
+      }
+    }
+  },
+  watch: {
+    priceEc2: function (val, oldVal) {
+      this.calPrice(this.priceEc2, this.priceRds, this.typePrice)
+    },
+    priceRds: function (val, oldVal) {
+      this.calPrice(this.priceEc2, this.priceRds, this.typePrice)
+    },
+    typePrice: function (val, oldVal) {
+      this.calPrice(this.priceEc2, this.priceRds, this.typePrice)
     }
   }
 }

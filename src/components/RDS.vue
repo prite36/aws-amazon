@@ -28,7 +28,7 @@
        </option>
      </select>
      <div class="tab_text">
-       <span>DB engine: {{ getClassDB }} </span><br><br>
+       <span>DB class of engine: {{ getClassDB }} </span><br><br>
      </div>
      <!-- ***************************************** -->
      <!-- Drop Down Deployment type of DB  -->
@@ -40,6 +40,8 @@
     <div class="tab_text">
       <span>Deployment type of DB : {{ getDeploy }} </span><br><br>
     </div>
+    <!-- {{dataQClassDeploy[0].sku}} -->
+    <br>Price : {{priceRds}}<br><br>
    </div>
   </div>
 
@@ -53,14 +55,14 @@
       <span>Selected Deployment type of DB : {{ getDeploy   }}</span><br><br>
     </div> -->
 
-     {{dataQLocation.length}}
-     {{dataQClassDeploy}}
+
+
   </div>
 </template>
 
 <script>
 export default {
-  props: ['getLocation'],
+  props: ['getLocation', 'fuPricerds', 'priceRds'],
   data () {
     return {
       msg: 'RDS',
@@ -69,7 +71,7 @@ export default {
       dataQDBengine: [],
       dataQClassDeploy: [],
       // -----------------------
-      getLocation: '-',
+      // getLocation: '-',
       getLocation2: '',
       getDBengine: '-',
       getDBengine2: '',
@@ -152,6 +154,9 @@ export default {
         }
         // *****************************************
       }
+    },
+    getClassDB: function (val, oldVal) {
+      this.priceSum()
     }
   },
   methods: {
@@ -211,10 +216,18 @@ export default {
         arrData.forEach(item => {
           let splDeploy = item.attributes.deploymentOption.split(' ') // ใช้ตัดข้อความ Multi-AZ (SQL Server Mirror) ให้เหลือแต่ Multi-AZ
           if (item.attributes.instanceType === this.getClassDB.replace('.', '*') && splDeploy[0] === this.getDeploy) {
-            this.dataQClassDeploy.push(item.sku)
+            this.dataQClassDeploy.push(item)
           }
         })
       }
+    },
+    priceSum: function () {
+      let sku = this.dataQClassDeploy[0].sku
+      let text = 'https://aws-amazon-fe7a5.firebaseio.com/RDS/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
+      this.$http.get(text).then(function (res) {
+        this.priceRds = res.body.replace('*', '.')
+        this.fuPricerds(this.priceRds)
+      })
     }
   }
 }
