@@ -1,5 +1,5 @@
 <template>
-  <div id="EC2">
+  <div id="EC2" style="height: 100vu">
     <!-- Drop Down List Location  -->
     <!-- <a class="button"> -->
         <!-- <div class="testbutton"><img src="https://firebasestorage.googleapis.com/v0/b/aws-amazon-fe7a5.appspot.com/o/United-States-of-America.png?alt=media&token=76b363de-b3bc-4a4e-bd54-b5d859ffd69e" placeholder="First name" alt="">
@@ -106,11 +106,12 @@ export default {
   props: ['getLocation', 'fuLocation'],
   data () {
     return {
+      allDataEC2: [],
       dataQLocation: [],
       dataQOS: [],
       dataQCPU: [],
       dataQRAM: [],
-      dataQHdd: [],
+      dataQHDD: [],
       // -------------------
 
       getOS: '-',
@@ -187,6 +188,11 @@ export default {
     //   }
     // }
   },
+  watch: {
+    getHDD: function (val, oldVal) {
+      this.priceSum()
+    }
+  },
   components: {},
   methods: {
     queryLocation: function (boxLocation) {
@@ -207,15 +213,27 @@ export default {
         //  ---------------------
         this.fuLocation(this.getLocation)
         this.getLocation2 = this.getLocation
-        this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/products.json').then(function (res) {
-          var arrData = Object.keys(res.body).map(key => res.body[key])
+        var arrData = {}
+        if (Object.keys(this.allDataEC2).length === 0) {
+          this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/products.json').then(function (res) {
+            this.allDataEC2 = JSON.parse(JSON.stringify(res.body))
+            arrData = Object.keys(res.body).map(key => res.body[key])
+            arrData.forEach(item => {
+              if (item.attributes.tenancy === 'Shared' && item.attributes.location === this.getLocation) {
+                this.dataQLocation.push(item)
+                this.banOS(item.attributes.location)
+              }
+            })
+          })
+        } else {
+          arrData = Object.keys(this.allDataEC2).map(key => this.allDataEC2[key])
           arrData.forEach(item => {
             if (item.attributes.tenancy === 'Shared' && item.attributes.location === this.getLocation) {
               this.dataQLocation.push(item)
               this.banOS(item.attributes.location)
             }
           })
-        })
+        }
       }
     },
     banOS: function (location) {
@@ -253,6 +271,9 @@ export default {
             // --------------------------
           }
         })
+        // this.dropdownCPU.sort(function (a) {
+        //   return a.newvCPU
+        // })
       }
     },
     queryCPU: function () {
@@ -283,6 +304,9 @@ export default {
             // --------------------------
           }
         })
+        // this.dropdownRAM.sort(function (a) {
+        //   return a.newRAM
+        // })
       }
     },
     queryRAM: function () {
@@ -315,27 +339,24 @@ export default {
       }
     },
     queryHDD: function () {
+      var vm = this
       if (this.getHDD !== '-' && this.getHDD !== this.getHDD2) {
         // Clear Data -----------
         // --- DATA -------
         this.dataQHDD = []
         // ---------------------
         this.getHDD2 = this.getHDD
-        var arrData = Object.keys(this.dataQCPU).map(key => this.dataQRAM[key])
+        var arrData = Object.keys(this.dataQRAM).map(key => this.dataQRAM[key])
         arrData.forEach(item => {
           if (item.attributes.storage === this.getHDD) {  // สลับกลับจากตัว . เป็น *  เพื่อเอาไปหาใน Json
-            this.dataQHDD.push(item)
+            vm.dataQHDD.push(item)
           }
+          console.log(vm.dataQHDD[0])
         })
       }
-      let sku = this.dataQHdd[0].sku
-      let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
-      this.$http.get(text).then(function (res) {
-        this.priceEc2 = res.body
-      })
     },
     priceSum: function () {
-      let sku = this.dataQHdd[0].sku
+      let sku = this.dataQHDD[0].sku
       let text = 'https://aws-amazon-fe7a5.firebaseio.com/terms/OnDemand/' + sku + '/' + sku + '*JRTCKXETXF/priceDimensions/' + sku + '*JRTCKXETXF*6YS6EN2CT7/pricePerUnit/USD.json'
       this.$http.get(text).then(function (res) {
         this.priceEc2 = res.body
@@ -352,8 +373,7 @@ h1, h2 {
 }
 #EC2{
     background-color: #FFFFFF;
-    height: 100%;
-    width: 100%;
+    width:  100vu;
 }
 *		{box-sizing:border-box;}
 .buttonchoice {

@@ -4,7 +4,7 @@
        {{dropdownrds}} -->
 
        <nav class="nav_has-shadow"></nav>
-       <!-- <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2> -->
+       <EC2 :get-location="getLocation" :fu-location="fuLocation"></EC2>
        <RDS :get-location="getLocation" ></RDS>
       <transition name="slide-fade" mode="out-in">
       </transition>
