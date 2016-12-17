@@ -11,11 +11,11 @@
     <div class="deploy_block_step">1</div>
     <h3>Server Location</h3>
     </div>
-</div>
+</div >
 
 
        <div  class="buttonchoice" @click="queryLocation(boxLocations[0].value,1)" :style="{'border-color': bgcolor }" >
-           <img src="http://upic.me/i/yf/united-states-of-america.png" alt="" align="center">
+           <img src="http://upic.me/i/yf/united-states-of-america.png" alt="" align="center" >
            <br><br>US-East / US Standard <br>(Virginia)
      </div>
 
@@ -70,7 +70,7 @@
 
      </div>
    </div>
-
+  <a class="button is-warning is-loading" style="width:100%;height:50px" v-if="chWait">Loading</a>
 
 <hr >
 
@@ -230,7 +230,7 @@ export default {
       dataQRAM: [],
       dataQHDD: [],
       // -------------------
-
+      chWait: false,
       getOS: '-',
       getOS2: '',
       getCPU: '-',
@@ -286,6 +286,11 @@ export default {
     }
   },
   computed: {
+    wait: function () {
+      if (this.dataQLocation.length === 0) {
+        this.chWait = true
+      }
+    },
     switchOS: function () {
       if (this.dataQLocation.length !== 0) {
         return false
@@ -330,7 +335,6 @@ export default {
   components: {},
   methods: {
     queryLocation: function (boxLocations, br) {
-      console.log(br)
       if (br === 1) {
         this.bgcolor2 = '#bdbdbd'
         this.bgcolor = '#0d47a1'
@@ -493,7 +497,9 @@ export default {
         this.getLocation2 = this.getLocation
         var arrData = {}
         if (Object.keys(this.allDataEC2).length === 0) {
+          if (this.dataQLocation.length === 0) { this.chWait = true }
           this.$http.get('https://aws-amazon-fe7a5.firebaseio.com/products.json').then(function (res) {
+            this.chWait = false
             this.allDataEC2 = JSON.parse(JSON.stringify(res.body))
             arrData = Object.keys(res.body).map(key => res.body[key])
             arrData.forEach(item => {

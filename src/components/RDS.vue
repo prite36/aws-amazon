@@ -92,7 +92,6 @@ export default {
         { value: {text: 'MySQL', db: 'MySQL', status: 1} },
         { value: {text: 'MariaDB', db: 'MariaDB', status: 1} },
         { value: {text: 'PostgreSQL', db: 'PostgreSQL', status: 1} },
-        { value: {text: 'Oracle', db: 'Oracle', dbedit: 'Enterprise', status: 1} },
         { value: {text: 'Oracle', db: 'Oracle', dbedit: 'Standard One', status: 1} },
         // { value: {text: 'SQL Server (BYOL: EE, SE)', db: 'SQL Server', status: 1} },
         { value: {text: 'SQL Server (Enterprise Edition License Included)', db: 'SQL Server', dbedit: 'Enterprise', status: 1} },
