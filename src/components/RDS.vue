@@ -1,8 +1,8 @@
 <template>
   <div id="RDS">
-    <h1>{{ msg }}</h1>
-    <br>RDS CALCULAROT<br><br>
-
+<RDS :get-location="getLocation" :fu-pricerds="fuPricerds" :price-rds="priceRds"></RDS>
+<div class="price5">RDS_CALCULAROT</div>
+<div class ="b1" >
     <div class ="box02" >
     <div class="deploy_block">
     <div class="deploy_block_step">1</div>
@@ -42,10 +42,14 @@
     <div class="tab_text">
       <span>Deployment type of DB : {{ getDeploy }} </span><br><br>
     </div>
-    <!-- {{dataQClassDeploy[0].sku}} -->
-    <br>Price : {{priceRds}}<br><br>
+
+     <div class="price"><br>RDS Price : <br>$ {{priceRds}}<br><br>  </div>
    </div>
-  </div>
+ </div>
+</div>
+
+
+
 
 
      <!-- Drop Down Deployment type of DB  -->
@@ -321,6 +325,22 @@ export default {
   letter-spacing: 1px;
   text-align: left;
 }
+.price {
+
+
+  width: 300px;
+  padding: 0% 1% 0% 1%;
+  box-sizing: border-box;
+  position:relative;
+  margin:0px auto 50px auto;
+  outline: none;
+  text-align: center;
+  font-size:17px;
+  border: 3px solid #FF8F00;
+background-color: #FFD54F;
+  font-family: fantasy;
+  letter-spacing: 2.5pt;
+}
 h3 {
   font-size:20px;
   line-height:28px;
@@ -328,5 +348,37 @@ h3 {
   color:#363B40;
   font-weight:500;
   float: left;
+}
+
+gg{
+  background-color: red;
+border: 3px solid #4caf50;
+}
+
+.price5{
+  width: 300px;
+  padding: 1% 100% 1% 25%;
+
+
+  text-align: center;
+  font-size:30px;
+
+  font-family: fantasy;
+  letter-spacing: 1.5pt;
+  border: 3px solid #FF8F00;
+
+background-color: #FFD54F;
+
+}
+
+.b1{
+  max-width:1170px;
+  min-width:360px;
+  position:relative;
+  padding-left:60px;
+  margin-bottom:30px;
+  margin:0px auto 50px auto;
+  padding:0px 30px;
+
 }
 </style>

@@ -2,9 +2,14 @@
   <div id="app">
       <!-- <button @click="Test()">GET DATA</button>
        {{dropdownrds}} -->
-       <nav class="nav_has-shadow"></nav>
-       <EC2 :get-location="getLocation" :fu-location="fuLocation" :fu-priceec2="fuPriceec2":price-ec2="priceEc2"></EC2>
-       <RDS :get-location="getLocation" :fu-pricerds="fuPricerds" :price-rds="priceRds"></RDS><br>
+
+      <div class="price9">Amazon</div>
+      <EC2 :get-location="getLocation" :fu-location="fuLocation" :fu-priceec2="fuPriceec2":price-ec2="priceEc2"></EC2>
+      <RDS :get-location="getLocation" :fu-pricerds="fuPricerds" :price-rds="priceRds"></RDS>
+
+
+
+    <div class="radio01">
        <input type="radio" id="Hour" value="Hour" v-model="typePrice">
       <label for="one">Hour</label>
       &nbsp;&nbsp;
@@ -13,20 +18,29 @@
       &nbsp;&nbsp;
       <input type="radio" id="Month" value="Month" v-model="typePrice">
       <label for="two">Month</label>
-      <br>
-
       <br><br>
-   <!-- ********************** -->
-   <div class="Showsum">
+      <input type="radio" id="usd" value="usd" v-model="currency">
+      <label for="two">$</label>
+      &nbsp;&nbsp;
+      <input type="radio" id="thb" value="thb" v-model="currency">
+      <label for="two">฿</label>
+    </div>
 
-   <p class="inset">$ {{totalPrice}}</p>
+   <!-- ********************** -->
+
+   <div class="Showsum">
+  <div style= "float: left;">
+  </div>
+
+   <p class="inset"> {{totalPrice}}</p>
    </div>
+   <br>
      <div class="signup-form--container">
    <div class="signup-form--container--inner">
              <div class="herounit__signup">
                <div class="herounit__title">
-                 <div class="herounit__title-heading">Try Wake free for 30 days</div>
-                 <p class="signup-form__text">No credit card required. Cancel anytime.</p>
+                 <div class="herounit__title-heading">Thanks for watching</div>
+                 <p class="signup-form__text">EC2 & RDS : Calculate</p>
                  <a href="#" class="btn btn-hero btn-hero--white">Home</a>
                </div>
              </div>
@@ -37,8 +51,7 @@
    <a rel="nofollow" style="display:scroll;position:fixed;bottom:10px;right:5px;" href="#" title="Back to Top"><img src="http://2.bp.blogspot.com/-BkNGUImcIV4/USDcBMHYjqI/AAAAAAAAAig/qEtwRO4pH6Q/s1600/back+to+top.png "/></a><!--mybloggersworld.com-->
 
 
-   <hr><br>
-         <div
+
 
 
 
@@ -61,7 +74,8 @@ export default {
       priceEc2: 0,
       priceRds: 0,
       totalPrice: 0,
-      typePrice: 'Day'
+      typePrice: 'Day',
+      currency: 'usd'
     }
   },
   methods: {
@@ -90,12 +104,22 @@ export default {
       this.priceRds = rds
     },
     calPrice: function (ec2, rds, type) {
+      let cer = 0
+      let icon = ' $ '
+      console.log(cer + icon)
+      if (this.currency === 'thb') {
+        cer = 35.8
+        icon = ' ฿ '
+      } else {
+        cer = 1
+        icon = '$'
+      }
       if (type === 'Hour') {
-        this.totalPrice = (parseInt(ec2)) + (parseInt(rds))
+        this.totalPrice = icon + ((parseInt(ec2)) + (parseInt(rds)) * cer).toFixed(2) + '/ Hr'
       } else if (type === 'Day') {
-        this.totalPrice = (ec2 * 24) + (rds * 24)
+        this.totalPrice = icon + ((ec2 * 24) + (rds * 24) * cer).toFixed(2) + '/ Day'
       } else if (type === 'Month') {
-        this.totalPrice = (ec2 * 24 * 30) + (rds * 24 * 30)
+        this.totalPrice = icon + ((ec2 * 24 * 30) + (rds * 24 * 30) * cer).toFixed(2) + '/ Month'
       }
     }
   },
@@ -108,7 +132,13 @@ export default {
     },
     typePrice: function (val, oldVal) {
       this.calPrice(this.priceEc2, this.priceRds, this.typePrice)
+    },
+    currency: function (val, oldVal) {
+      this.calPrice(this.priceEc2, this.priceRds, this.typePrice)
     }
+  },
+  computed: {
+
   }
 }
 </script>
@@ -169,8 +199,8 @@ text-align: center;
        outline: none;
        text-align: center;
        font-size:17px;
-       border: 3px solid #4caf50;
-       background-color: #b9f6ca;
+       border: 3px solid #FF8F00;
+background-color: #FFD54F;
        font-family: fantasy;
        letter-spacing: 2.5pt;
    }
@@ -230,6 +260,30 @@ h3{
     display: inline-block;
     cursor: pointer;
 }
+.price9{
+  width: 300px;
+  padding: 1% 200% 1% 17%;
+
+
+
+  background-color: #FFB300;
+  letter-spacing: 1.5pt;
+
+  color: #ffffff;
+  font-size: 500%;
+  letter-spacing: 7pt;
+  font-weight: 900;
+  font-family:Engravers MT;
+}
+.radio01 {
+  font-size: 1.5em;
+}
+
+o{
+color: red;
+
+}
+
 
   /*********************************/
 

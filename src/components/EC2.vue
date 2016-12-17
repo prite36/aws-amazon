@@ -1,6 +1,8 @@
 <template>
   <div id="EC2" style="height: 100vu">
 
+<div class="price6">EC2_CALCULAROT</div>
+
 
 
 <div class="choicezone">
@@ -9,7 +11,7 @@
     <div class="deploy_block_step">1</div>
     <h3>Server Location</h3>
     </div>
-    </div>
+</div>
 
 
        <div  class="buttonchoice" @click="queryLocation(boxLocations[0].value,1)" :style="{'border-color': bgcolor }" >
@@ -70,13 +72,15 @@
    </div>
 
 
+<hr >
+
 
 <div class="choiceos">
 
 
    <div class ="box02" >
    <div class="deploy_block">
-   <div class="deploy_block_step">1</div>
+   <div class="deploy_block_step">2</div>
    <h3>Server Type</h3>
    </div>
    </div>
@@ -116,8 +120,9 @@
          <br>{{nameOS[6].value.text}}
        </div>
 
-       </div>
-<br>
+     </div>
+
+<hr >
 
 
 
@@ -137,7 +142,7 @@
 
     <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">2</div>
+    <div class="deploy_block_step">3</div>
     <h3>vCPU Size</h3>
     </div>
 <div class="tab_dropdown">
@@ -153,11 +158,12 @@
     </div>
     </div>
   </div>
+  <hr >
     <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List RAM  -->
   <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">3</div>
+    <div class="deploy_block_step">4</div>
     <h3>Memory Size</h3>
     </div>
 
@@ -174,11 +180,12 @@
     </div>
   </div>
   </div>
+  <hr >
     <!-- ++++++++++++++++++++++ -->
     <!-- Drop Down List Hdd  -->
     <div class ="box02" >
     <div class="deploy_block">
-    <div class="deploy_block_step">4</div>
+    <div class="deploy_block_step">5</div>
     <h3>Memory Size</h3>
     </div>
 
@@ -193,9 +200,12 @@
     <div class="tab_text">
       <span>Selected Storage : {{ getHDD }} </span>
     </div>
-    <br>Price : {{priceEc2}}<br><br>
+
   </div>
   </div>
+
+  <div class="price"><br>EC2 Price : <br>$ {{priceEc2}}<br><br></div>
+
     <!-- ++++++++++++++++++++++ -->
 
 
@@ -714,10 +724,11 @@ h1, h2 {
 *		{box-sizing:border-box;}
 .choicezone {
   padding-left: 17%;
-  padding-right: 3%;
+  padding-right: 2%;
   text-align: left;
 
 }
+
 .buttonchoice {
   width: 12%;
     height: 18.2vh;
@@ -776,7 +787,36 @@ h1, h2 {
   font-size: 100%;
 }
 
+.price {
+  /*text-align: center;
+  box-sizing: border-box;
+  letter-spacing: 1.0pt;
+  width: 200px;
+  height: 200px;
+  margin-top: 0px;
+  padding: auto 50px 50px 50px;
+  border: 1px solid #e6e9eb;
+  border-style: solid;
+  max-width:1170px;
+  min-width:360px;
+  position:relative;
+  margin-bottom:30px;
+  margin:0px auto 50px auto;
+  overflow: hidden;*/
 
+  width: 300px;
+  padding: 0% 1% 0% 1%;
+  box-sizing: border-box;
+  position:relative;
+  margin:0px auto 50px auto;
+  outline: none;
+  text-align: center;
+  font-size:17px;
+  border: 3px solid #FF8F00;
+  background-color: #FFD54F;
+  font-family: fantasy;
+  letter-spacing: 2.5pt;
+}
 
 
 
@@ -837,7 +877,7 @@ h1, h2 {
   text-align: left;
 }
 h3 {
-  font-size:20px;
+  font-size:1.5em;
   line-height:28px;
   margin:15px 10px 30px 10px;
   color:#363B40;
@@ -846,6 +886,19 @@ h3 {
 }
 /*--------------------------------------------------*/
 
+.price6{
+  width: 300px;
+  padding: 1% 100% 1% 25%;
+  border: 3px solid #FF8F00;
+
+
+  text-align: center;
+  font-size:30px;
+  background-color: #FFD54F;
+  font-family: fantasy;
+  letter-spacing: 1.5pt;
+
+}
 
 
 </style>
