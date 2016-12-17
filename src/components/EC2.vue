@@ -626,6 +626,7 @@ export default {
       if (this.getCPU !== '-' && this.getCPU !== this.getCPU2) {
         // Clear Data -----------
         this.getRAM = '-'
+        this.getHDD = '-'
         // --- DATA -------
         this.dataQCPU = []
         this.dataQRAM = []
